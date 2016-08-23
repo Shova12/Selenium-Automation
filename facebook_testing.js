@@ -53,8 +53,7 @@ webdriver = require('selenium-webdriver');
 
 test.describe('Facebook',function(){
 	test.it('should get tag',function(){
-		var driver = new webdriver.Builder().withCapabilities(webdriver.Capabilities.firefox()).
-		build();
+		var driver = new webdriver.Builder().withCapabilities(webdriver.Capabilities.firefox()).build();
 
 		driver.get('http://www.facebook.com');
 		var tagName=  driver.findElement(webdriver.By.id('email')).getTagName();
@@ -64,7 +63,7 @@ test.describe('Facebook',function(){
 	});
 
 	test.it('check persist',function(){
-		var driver = new webdriver.Builder().withCapabilities(webdriver.Capabilities.firefox)).
+		var driver = new webdriver.Builder().withCapabilities(webdriver.Capabilities.firefox()).
 		build();
 
 		driver.get('http://www.facebook.com');
