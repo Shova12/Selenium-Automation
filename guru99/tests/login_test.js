@@ -7,12 +7,27 @@ By = require('selenium-webdriver').By;
 //logs
 webdriver.logging.installConsoleHandler();
 webdriver.logging.getLogger('webdriver.http')
-    .setLevel(webdriver.logging.Level.ALL);
+    .setLevel(webdriver.logging.Level.INFO); 
 
 test.describe('Login',function(){
 	var driver; //known as global variables and can be used anywhere in test case within function.
 	var username;
 	var password;
+
+	var invalidCredentials = [{
+		username: '',
+		password: ''
+	},
+	{
+		username: 'trere',
+		password: ''
+
+	},
+	{
+		username: ' ',
+		password: ' '
+
+	}];
 	test.before(function() {
 	  driver = new webdriver.Builder()
 		    .forBrowser('firefox')
@@ -21,6 +36,15 @@ test.describe('Login',function(){
 
 	test.after(function() {
 	  driver.quit();
+	});
+	
+	test.ignore('Click Login', function() {
+		driver.get("http://demo.guru99.com/V4/");
+		driver.findElement(By.name("uid")).sendKeys('test');
+		driver.findElement(By.name("password")).sendKeys('test');
+		driver.sleep(1000);
+		driver.findElement(By.name("btnLogin")).click();
+		driver.sleep(5000);
 	});
 
 	test.ignore('Click Reset', function() {
@@ -31,16 +55,7 @@ test.describe('Login',function(){
 		driver.findElement(By.name("btnReset")).click();
 	});
 
-	test.it('Click Login', function() {
-		driver.get("http://demo.guru99.com/V4/");
-		driver.findElement(By.name("uid")).sendKeys('test');
-		driver.findElement(By.name("password")).sendKeys('test');
-		driver.sleep(1000);
-		driver.findElement(By.name("btnLogin")).click();
-		driver.sleep(5000);
-	});
-
-	test.it('pop alert',function(){ //alert mistaken
+	test.ignore('pop alert',function(){  //alert
 		driver.get("http://demo.guru99.com/V4/");
 		driver.findElement(By.name("uid")).sendKeys('test');
 		driver.findElement(By.name("password")).sendKeys('test');
@@ -52,7 +67,7 @@ test.describe('Login',function(){
 		driver.sleep(5000);
 	});
 
-	test.it('Click here link',function(){
+	test.ignore('Click here link',function(){
 		driver.get("http://demo.guru99.com/V4/");
 		var link_here = driver.findElement(By.linkText("here")); 
 		link_here.click();
@@ -60,46 +75,7 @@ test.describe('Login',function(){
 		driver.wait(until.titleIs('Guru99 Bank Home Page'), 5000);
 	});
 
-	test.it('should to go next link',function(){
-		driver.get("http://demo.guru99.com");
-		var inputBox = driver.findElement(By.name("emailid")).sendKeys('test@test.com'); 
-		driver.sleep(5000);
-	});
-
-	test.it('error message ',function(){
-		driver.get("http://demo.guru99.com");
-		var inputBox = driver.findElement(By.name("emailid")).sendKeys(''); 
-		var inputBox = driver.findElement(By.name("btnLogin")).click(); 
-		driver.sleep(5000);
-		//driver.wait(function() {
-			driver.findElement(By.id("message9")).getText()
-			.then(function(text) {
-				//console.log(text, "This is test >>>>>>>>>>>>>>");
-				assert.equal(text, 'Email ID must not be blank');
-			});
-			
-	//	}, 2000)
-	});
-	test.it('error message ',function(){
-		driver.get("http://demo.guru99.com");
-		var inputBox = driver.findElement(By.name("emailid")).sendKeys(' '); 
-		var inputBox = driver.findElement(By.name("btnLogin")).click(); 
-		//driver.sleep(5000);
-	//	driver.wait(function() {
-			driver.findElement(By.id("message9")).getText()
-			.then(function(text) {
-				//console.log(text, "This is test >>>>>>>>>>>>>>");
-				assert.equal(text, 'Email ID is not valid');
-			});
-	});		
-		//}, 2000)
-	test.it('should to click on submit',function(){
-		driver.get("http://demo.guru99.com");
-		var inputBox = driver.findElement(By.name("btnLogin")).click(); 
-		driver.sleep(5000);
-	});
-
-	test.it('error message ',function(){
+	test.ignore('error message ',function(){  // is required to support below test case
 		driver.get("http://demo.guru99.com");
 		var inputBox = driver.findElement(By.name("emailid")).sendKeys('test@test.com'); 
 		var inputBox = driver.findElement(By.name("btnLogin")).click(); 
@@ -121,9 +97,9 @@ test.describe('Login',function(){
 		.then(function(text) {
 			password = text;
 		});
-	});
+	})
 
-	test.it('Login',function(){
+	test.ignore('Login',function(){
 		//console.log(' <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< userName: >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', username);
 		driver.get("http://demo.guru99.com/V4/");
 		driver.findElement(By.xpath("html/body/form/table/tbody/tr[1]/td[2]/input")).sendKeys(username); 
@@ -137,18 +113,25 @@ test.describe('Login',function(){
 		});
 		driver.sleep(5000);
 	});	
+	
+	test.it('Invalid Logins',function(){
+		//console.log(' <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< userName: >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', username);
+		driver.get("http://demo.guru99.com/V4/");
+		invalidCredentials.forEach(function(credential) {
+			driver.findElement(By.name("uid")).sendKeys(credential.username); 
+			driver.findElement(By.name("password")).sendKeys(credential.password); 
+			driver.findElement(By.name("btnLogin")).click();
 
-	test.ignore('link home',function(){
-		driver.get("http://demo.guru99.com/V4/manager/addcustomerpage.php");
-		driver.findElement(By.linkText("Home")).click();
-		driver.sleep(1000);
-		driver.findElement(By.xpath('html/body/table/tbody/tr/td/table/tbody/tr[2]/td/marquee')).getText()
-			.then(function(text){
-				assert.equal(text, "Welcome To Manager's Page of Guru99 Bank");
-			});	
-		driver.sleep(5000);
-	});
+			driver.wait(until.alertIsPresent(),3000).then(function(){
+				var alert = driver.switchTo().alert();
+				driver.sleep(1000);
+				alert.accept();
+			});
+			
+			driver.sleep(2000);
+		});
+	});	
 });
 
-//mngr37405
-//UbYqYje
+//mngr48670
+//tEvYhuv 
