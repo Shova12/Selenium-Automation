@@ -29,17 +29,18 @@ test.describe('Login',function(){
 
 	}];
 	test.before(function() {
-	  driver = new webdriver.Builder()
-		    .forBrowser('firefox')
-		    .build();
+		 driver = new webdriver.Builder()
+			  .forBrowser('firefox')
+			  .build();
+
+		driver.get("http://demo.guru99.com/V4/");
 	});
 
 	test.after(function() {
 	  driver.quit();
 	});
 	
-	test.ignore('Click Login', function() {
-		driver.get("http://demo.guru99.com/V4/");
+	test.it('Click Login', function() {
 		driver.findElement(By.name("uid")).sendKeys('test');
 		driver.findElement(By.name("password")).sendKeys('test');
 		driver.sleep(1000);
@@ -114,7 +115,7 @@ test.describe('Login',function(){
 		driver.sleep(5000);
 	});	
 	
-	test.it('Invalid Logins',function(){
+	test.ignore('Invalid Logins',function(){
 		//console.log(' <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< userName: >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', username);
 		driver.get("http://demo.guru99.com/V4/");
 		invalidCredentials.forEach(function(credential) {

@@ -12,8 +12,10 @@ test.describe('Add new customer',function(){
 	var driver;
 	test.before(function(){
 		driver = new webdriver.Builder()
-		.forBrowser('firefox')
-		.build();
+			.forBrowser('firefox')
+			.build();
+
+		driver.get("http://demo.guru99.com/V4/manager/addcustomerpage.php");
 	});
 	
 	test.after(function(){
@@ -21,7 +23,7 @@ test.describe('Add new customer',function(){
 	});
 
 	test.it('link home',function(){
-		driver.get("http://demo.guru99.com/V4/manager/addcustomerpage.php");
+		
 		driver.findElement(By.linkText("Home")).click();
 		driver.sleep(1000);
 		driver.findElement(By.xpath('html/body/table/tbody/tr/td/table/tbody/tr[2]/td/marquee')).getText()

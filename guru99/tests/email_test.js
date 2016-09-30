@@ -5,9 +5,9 @@ webdriver = require('selenium-webdriver'),
 By = require('selenium-webdriver').By;
 
 //logs
-/*webdriver.logging.installConsoleHandler();
+webdriver.logging.installConsoleHandler();
 webdriver.logging.getLogger('webdriver.http')
-    .setLevel(webdriver.logging.Level.INFO);*/
+    .setLevel(webdriver.logging.Level.INFO);
 
 test.describe('Login',function(){
 	var driver; //known as global variables and can be used anywhere in test case within function.
@@ -16,9 +16,12 @@ test.describe('Login',function(){
 
 	
 	test.before(function() {
-	  driver = new webdriver.Builder()
-		    .forBrowser('firefox')
-		    .build();
+		 driver = new webdriver.Builder()
+			 .forBrowser('firefox')
+			 .build();
+
+		driver.get("http://demo.guru99.com");
+
 	});
 
 	test.after(function() {
@@ -26,19 +29,16 @@ test.describe('Login',function(){
 	});
 
 	test.it('should to click on submit',function(){
-		driver.get("http://demo.guru99.com");
 		var inputBox = driver.findElement(By.name("btnLogin")).click(); 
 		driver.sleep(5000);
 	});
 
 	test.ignore('should to go next link',function(){
-		driver.get("http://demo.guru99.com");
 		var inputBox = driver.findElement(By.name("emailid")).sendKeys('test@test.com'); 
 		driver.sleep(5000);
 	});
 
 	test.ignore('error message ',function(){
-		driver.get("http://demo.guru99.com");
 		var inputBox = driver.findElement(By.name("emailid")).sendKeys('test@test.com'); 
 		var inputBox = driver.findElement(By.name("btnLogin")).click(); 
 		driver.sleep(5000);
@@ -62,7 +62,7 @@ test.describe('Login',function(){
 	});
 
 	test.ignore('Email id blank err message ',function(){
-		driver.get("http://demo.guru99.com");
+		//driver.get("http://demo.guru99.com");
 		var inputBox = driver.findElement(By.name("emailid")).sendKeys(''); 
 		var inputBox = driver.findElement(By.name("btnLogin")).click(); 
 		driver.sleep(5000);
@@ -76,7 +76,7 @@ test.describe('Login',function(){
 	//	}, 2000)
 	});
 	test.ignore('Not vaild email id error message ',function(){
-		driver.get("http://demo.guru99.com");
+		//driver.get("http://demo.guru99.com");
 		var inputBox = driver.findElement(By.name("emailid")).sendKeys(' '); 
 		var inputBox = driver.findElement(By.name("btnLogin")).click(); 
 		//driver.sleep(5000);

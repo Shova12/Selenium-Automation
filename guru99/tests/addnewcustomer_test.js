@@ -44,17 +44,18 @@ test.describe('Add new customer',function(){
 		driver = new webdriver.Builder()
 		.forBrowser('firefox')
 		.build();
+
+		driver.get("http://demo.guru99.com/V4/manager/addcustomerpage.php");
+
 	});
 
 	test.after(function(){
 		driver.quit();
 	});
 
-	test.ignore('Customer page',function(){
-		driver.get("http://demo.guru99.com/V4/manager/addcustomerpage.php");
+	test.it('Customer page',function(){
 		driver.findElement(By.linkText("New Customer")).click(); 
 		driver.sleep(5000);
-
 		driver.findElement(By.xpath("html/body/table/tbody/tr/td/table/tbody/tr[1]/td/p")).getText()
 			.then(function(te){
 				assert.equal(te,"Add New Customer");
@@ -63,7 +64,6 @@ test.describe('Add new customer',function(){
 	});
 
 	test.ignore('Add customer',function(){
-		driver.get("http://demo.guru99.com/V4/manager/addcustomerpage.php");
 		driver.findElement(By.name("name")).sendKeys("Jimmy"); 
 		driver.findElement(By.name("rad1")).click();
 		driver.findElement(By.name("dob")).sendKeys("12/02/1996");
@@ -80,7 +80,6 @@ test.describe('Add new customer',function(){
 	});
 
 	test.ignore('Click Reset',function(){
-		driver.get("http://demo.guru99.com/V4/manager/addcustomerpage.php");
 		driver.findElement(By.name("name")).sendKeys("Jimmy"); 
 		driver.findElement(By.name("rad1")).click();
 		driver.findElement(By.name("dob")).sendKeys("12/02/1996");
@@ -97,7 +96,6 @@ test.describe('Add new customer',function(){
 	});
 
 	test.ignore('pop alert',function(){
-		driver.get("http://demo.guru99.com/V4/manager/addcustomerpage.php");
 		driver.findElement(By.name("sub")).click();
 		var alert = driver.switchTo().alert();
 		driver.sleep(1000);
@@ -106,7 +104,6 @@ test.describe('Add new customer',function(){
 	});
 
 	test.ignore('refersh browser',function(){
-		driver.get("http://demo.guru99.com/V4/manager/addcustomerpage.php");
 		driver.findElement(By.name("name")).sendKeys("");
 		driver.findElement(By.name("rad1")).click();
 		driver.findElement(By.name("dob")).sendKeys("");
@@ -125,7 +122,6 @@ test.describe('Add new customer',function(){
 	});
 
 	test.ignore('Number not allow err message',function(){
-		driver.get("http://demo.guru99.com/V4/manager/addcustomerpage.php");
 		driver.findElement(By.name("name")).sendKeys("142351");
 		driver.findElement(By.name("rad1")).click();
 		driver.findElement(By.name("dob")).sendKeys("12/02/1996");
@@ -147,7 +143,6 @@ test.describe('Add new customer',function(){
 	});
 
 	test.ignore('Blamk customer name err message',function(){
-		driver.get("http://demo.guru99.com/V4/manager/addcustomerpage.php");
 		driver.findElement(By.name("name")).sendKeys("");
 		driver.findElement(By.name("rad1")).click();
 		driver.findElement(By.name("dob")).sendKeys("12/02/1996");
@@ -169,7 +164,6 @@ test.describe('Add new customer',function(){
 	});
 
 	test.ignore('Blank date field err message',function(){
-		driver.get("http://demo.guru99.com/V4/manager/addcustomerpage.php");
 		driver.findElement(By.name("dob")).sendKeys("");
 		driver.findElement(By.name("addr")).sendKeys("14 Boston road");
 		driver.findElement(By.id("message24")).getText()
@@ -181,7 +175,6 @@ test.describe('Add new customer',function(){
 	});
 
 	test.ignore('Blank Address err message',function(){
-		driver.get("http://demo.guru99.com/V4/manager/addcustomerpage.php");
 		driver.findElement(By.name("addr")).sendKeys("");
 		driver.findElement(By.name("city")).sendKeys("Brick");
 		driver.findElement(By.id("message3")).getText()
@@ -192,7 +185,6 @@ test.describe('Add new customer',function(){
 	});
 
 	test.ignore('special characters err message',function(){
-		driver.get("http://demo.guru99.com/V4/manager/addcustomerpage.php");
 		driver.findElement(By.name("addr")).sendKeys("14 Boston,USA");
 		driver.findElement(By.name("city")).sendKeys("Brick");
 		driver.findElement(By.id("message3")).getText()
@@ -203,7 +195,6 @@ test.describe('Add new customer',function(){
 	});
 
 	test.ignore('Blank city err message',function(){
-		driver.get("http://demo.guru99.com/V4/manager/addcustomerpage.php");
 		driver.findElement(By.name("city")).sendKeys("");
 		driver.findElement(By.name("state")).sendKeys("NJ");
 		driver.findElement(By.id("message4")).getText()
@@ -214,7 +205,6 @@ test.describe('Add new customer',function(){
 	});
 
 	test.ignore('Number err message in city field',function(){
-		driver.get("http://demo.guru99.com/V4/manager/addcustomerpage.php");
 		driver.findElement(By.name("city")).sendKeys("123");
 		driver.findElement(By.name("state")).sendKeys("NJ");
 		driver.findElement(By.id("message4")).getText()
@@ -225,7 +215,6 @@ test.describe('Add new customer',function(){
 	});
 
 	test.ignore('Special characters err message in city field',function(){
-		driver.get("http://demo.guru99.com/V4/manager/addcustomerpage.php");
 		driver.findElement(By.name("city")).sendKeys("Brick,");
 		driver.findElement(By.name("state")).sendKeys("NJ");
 		driver.findElement(By.id("message4")).getText()
@@ -236,7 +225,6 @@ test.describe('Add new customer',function(){
 	});
 
 	test.ignore('Blank State err message',function(){
-		driver.get("http://demo.guru99.com/V4/manager/addcustomerpage.php");
 		driver.findElement(By.name("state")).sendKeys("");
 		driver.findElement(By.name("pinno")).sendKeys("142351")
 		driver.findElement(By.id("message5")).getText()
@@ -247,7 +235,6 @@ test.describe('Add new customer',function(){
 	});
 
 	test.ignore('Special characters err message in State Field',function(){
-		driver.get("http://demo.guru99.com/V4/manager/addcustomerpage.php");
 		driver.findElement(By.name("state")).sendKeys(",");
 		driver.findElement(By.name("pinno")).sendKeys("142351")
 		driver.findElement(By.id("message5")).getText()
@@ -257,7 +244,6 @@ test.describe('Add new customer',function(){
 		driver.sleep(1000);
 	});
 	test.ignore('Number err message in State Field',function(){
-		driver.get("http://demo.guru99.com/V4/manager/addcustomerpage.php");
 		driver.findElement(By.name("state")).sendKeys("12");
 		driver.findElement(By.name("pinno")).sendKeys("142351")
 		driver.findElement(By.id("message5")).getText()
@@ -268,7 +254,6 @@ test.describe('Add new customer',function(){
 	});
 
 	test.ignore('Number err message in State Field',function(){
-		driver.get("http://demo.guru99.com/V4/manager/addcustomerpage.php");
 		driver.findElement(By.name("pinno")).sendKeys("");
 		driver.findElement(By.name("telephoneno")).sendKeys("71245625478");
 		driver.findElement(By.id("message6")).getText()
@@ -278,8 +263,8 @@ test.describe('Add new customer',function(){
 		driver.sleep(1000);
 	});
 
-	test.ignore('Invaild customername',function(){
-		driver.get("http://demo.guru99.com/V4/manager/addcustomerpage.php");
+	test.it('Invaild customername',function(){
+		//driver.get("http://demo.guru99.com/V4/manager/addcustomerpage.php");
 		invaildCredentiaOfCc.forEach(function(customer){
 			driver.findElement(By.name("name")).sendKeys(customer.customername);
 			driver.findElement(By.name("rad1")).click();
@@ -288,8 +273,8 @@ test.describe('Add new customer',function(){
 		});
 	});
 		
-	test.it('Invaild message for Cc',function(){
-		driver.get("http://demo.guru99.com/V4/manager/addcustomerpage.php");
+	test.ignore('Invaild message for Cc',function(){
+		//driver.get("http://demo.guru99.com/V4/manager/addcustomerpage.php");
 		invaildMessageCc.forEach(function(message){	
 			driver.findElement(By.id("message")).getText()
 				.then(function(tex){
@@ -299,3 +284,5 @@ test.describe('Add new customer',function(){
 		});
 	});
 });
+
+ 
